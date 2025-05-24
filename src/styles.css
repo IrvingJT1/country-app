@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+/* @plugin "daisyui" {
+default es el tema que se trabaja y si se pone prefersdark 
+es para que este sea el default si se usa modo oscuro en el navegador 
+y el otro queda para light solamente
+  themes: cupcake --default, dark --prefersdark;
+} */
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: sunset --default;
+}
