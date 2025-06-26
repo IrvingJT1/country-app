@@ -1,0 +1,24 @@
+<section class="flex flex-row gap-2 mt-2">
+
+    <input 
+    type="text"
+    class="input input-bordered mr-2 w-56 "
+    [placeholder]="placeholder()"
+    autofocus
+    #txtSearch
+    (keyup.enter)="onSearch(txtSearch.value)"
+    
+    >
+<!-- se pudo haber hecho esto también, pero solo
+ cuando se quiera emitir un valor sin pasar por
+ alguna validación previa 
+ 
+ (keyup.enter)="nameChange.emit(txtSearch.value)" 
+ -->
+    
+<button class="btn btn-primary"
+    (click)="onSearch(txtSearch.value)"
+    >
+    Buscar
+    </button>
+</section>

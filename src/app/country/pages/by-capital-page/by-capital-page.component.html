@@ -1,0 +1,18 @@
+<country-search-input 
+ placeholder="Buscar capital por país"
+ (nameChange)="query.set($event)"/>
+
+<country-list 
+    [countries]="countryResource.value() ?? []"
+    [errorMessage]="countryResource.error()"
+    [isLoading]="countryResource.isLoading()"
+    [isEmpty]="countryResource.value()?.length === 0"
+/>
+ 
+<!-- @if(isError()){
+     <h3>{{ isError() }}</h3>
+} 
+@else {
+        
+    <country-list [countries]="countries()"/>
+} -->

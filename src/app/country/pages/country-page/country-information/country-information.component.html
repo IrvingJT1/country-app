@@ -1,0 +1,45 @@
+<section class="mx-10">
+    <h1 class="text-3xl">{{ country().name }}</h1> <hr><hr>
+    <br><br>
+    <table class="border border-collapse w-full">
+        <tr>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-semibold">Población:</h2>
+            </td>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-thin">{{ country().population | number }}</h2>
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-semibold">Nombre Oficial:</h2>
+            </td>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-thin">{{ country().population | number }}</h2>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-semibold">Región:</h2>
+            </td>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-thin">{{ country().region }}</h2>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-semibold">Límites:</h2>
+            </td>
+            <td class="border border-gray-300">
+                <h2 class="text-center text-xl font-thin">{{ country().borders }}</h2>
+
+            </td>
+        </tr>
+    </table>
+    <br><br>
+
+    <flag-viewer [flag]="country().flagSvg"/>
+
+</section>
