@@ -11,6 +11,9 @@ export class RegionButtonsComponent {
 
   regionName = output<string>();
 
+  selectedRegion = signal<string>('');
+
+  //Conservado para futuras referencias, en el actual código no se usa
   selectedArr = signal([
     false,
     false,
@@ -28,6 +31,8 @@ export class RegionButtonsComponent {
     'Oceania',
     'Antarctic',
   ];
+
+  //NOTA.- Conservado para futuras referencias, en el actual código no se usa
 
   //Así se actualiza un signal de tipo array de boolean
   //En este caso tomando arr como el valor actual del signal
@@ -49,10 +54,14 @@ export class RegionButtonsComponent {
 
   }
 
-  onSearch = (value:string, idx:number) => {
+  //Fin de NOTA
 
-    this.updateSignalArr(idx);
+  onSearch = (region:string, idx:number) => {
 
-    this.regionName.emit(value);
+    // this.updateSignalArr(idx);
+
+    this.selectedRegion.set(region);
+
+    this.regionName.emit(region);
   }
  }

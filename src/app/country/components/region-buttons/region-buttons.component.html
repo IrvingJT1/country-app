@@ -2,7 +2,8 @@
 
     @for(region of regions; let i = $index; track region)
     {
-        @if(selectedArr()[i])
+        <!-- Esta parte es conservada para futuras referencias -->
+        <!-- @if(selectedArr()[i])
         {
             <button class="btn btn-secondary mx-1" (click)="onSearch(region, i)" >
                 {{region}}
@@ -13,7 +14,18 @@
             <button class="btn btn-primary mx-1" (click)="onSearch(region, i)" >
                 {{region}}
             </button>
-        }
+        } -->
+
+        <!-- Fin de Esta parte es conservada para futuras referencias -->
+
+        <!-- La clase secundaria solo se añadirá si el signal selectedRegion es igual a la region que se está iterando -->
+
+        <button class="btn btn-primary mx-1"
+        [class.btn-secondary]="selectedRegion() === region" 
+        (click)="onSearch(region, i)" 
+        >
+            {{region}}
+        </button>
 
     }
 
