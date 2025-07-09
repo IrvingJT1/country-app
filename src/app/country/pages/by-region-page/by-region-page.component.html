@@ -1,1 +1,7 @@
-<country-list [countries]="[]"/>
+<region-buttons (regionName)="regionName.set($event)"/>
+
+<country-list 
+[countries]="regionResource.value() ?? []"
+[errorMessage]="regionResource.error()"
+[isLoading]="regionResource.isLoading()"
+[isEmpty]="regionResource.value()?.length === 0"/> 

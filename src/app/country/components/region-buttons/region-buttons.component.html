@@ -1,0 +1,20 @@
+<div>
+
+    @for(region of regions; let i = $index; track region)
+    {
+        @if(selectedArr()[i])
+        {
+            <button class="btn btn-secondary mx-1" (click)="onSearch(region, i)" >
+                {{region}}
+            </button>
+        }
+        @else
+        {
+            <button class="btn btn-primary mx-1" (click)="onSearch(region, i)" >
+                {{region}}
+            </button>
+        }
+
+    }
+
+</div>
