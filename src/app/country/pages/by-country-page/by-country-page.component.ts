@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, linkedSignal, resource, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { firstValueFrom, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import { CountrySearchInputComponent } from '../../components/country-search-input/country-search-input.component';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { CountryService } from '../../services/country.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-by-country-page',
@@ -14,17 +15,30 @@ import { CountryService } from '../../services/country.service';
 })
 export class ByCountryPageComponent {
 
-
   countryService = inject(CountryService);
-  query = signal('');
+
+  activatedRoute = inject(ActivatedRoute);
+
+  router = inject(Router);
+
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+
+  query = linkedSignal(()=>this.queryParam);
 
   countryResource = rxResource({
 
     request:() => ({ query: this.query() }),
     loader: ({request}) =>{
 
+      console.log({query : request.query})
+
       if(!request.query) return of([]);
 
+      this.router.navigate(['/country/by-country'],{
+        queryParams:{
+          query: request.query
+        }
+      })
       
       return this.countryService.searchByCountry(request.query)
       

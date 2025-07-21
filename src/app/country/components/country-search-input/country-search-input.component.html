@@ -8,7 +8,7 @@
     #txtSearch
     (keyup.enter)="onSearch(txtSearch.value)"
     (keyup)="inputValue.set(txtSearch.value)"
-    
+    [value]="inputValue()"
     >
 <!-- se pudo haber hecho esto también, pero solo
  cuando se quiera emitir un valor sin pasar por

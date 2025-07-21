@@ -1,6 +1,8 @@
 <country-search-input 
  placeholder="Buscar país por nombre"
- (nameChange)="query.set($event)"/>
+ (nameChange)="query.set($event)"
+ [initialValue]="query()"
+ />
 
 
 <country-list 

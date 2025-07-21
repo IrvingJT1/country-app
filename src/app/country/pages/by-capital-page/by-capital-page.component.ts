@@ -1,6 +1,7 @@
-import { Component, inject, resource, signal } from '@angular/core';
+import { Component, inject, linkedSignal, resource, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { firstValueFrom, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
 
 import { CountrySearchInputComponent } from '../../components/country-search-input/country-search-input.component';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
@@ -14,8 +15,18 @@ import { CountryService } from '../../services/country.service';
 export class ByCapitalPageComponent { 
 
   countryService = inject(CountryService);
-  query = signal('');
+  
+  //snapshot se usa para tomar lectura de como viene una URL por una única vez, si se requere estar al tanto
+  //de cualquier cambio en la url conviene usar queryparam o queryparamMap (sin snapshot) que vienen como observables
+  //se indica que cuando no se tiene valor del query en la url se toma una cadena vacía en su lugar
+  
+  activatedRoute = inject(ActivatedRoute);
 
+  router = inject(Router);
+  
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+  
+  query = linkedSignal(() => this.queryParam);
   //El recurso rxResource es básicamente lo mismo que el recurso anterior, solo que en este caso la función loader, no trabaja con promesas sino con observables
   //al trabajar con observables se retorna la invocación del servicio como va y si se retorna un arreglo vacío de hace a través de la funcion of()
   //al consumir el rxResource.value() ya se retorna el valor solicitado al observable como si se estuviera suscrito a este
@@ -28,7 +39,12 @@ export class ByCapitalPageComponent {
 
       if(!request.query) return of([]);
 
-      
+      this.router.navigate(['/country/by-capital'],{
+        queryParams:{
+          query: request.query
+        }
+      });
+
       return this.countryService.searchByCapital(request.query);
       
     }

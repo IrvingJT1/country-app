@@ -1,4 +1,4 @@
-import { Component, effect, input, output, signal } from '@angular/core';
+import { Component, effect, input, linkedSignal, output, signal } from '@angular/core';
 
 @Component({
   selector: 'country-search-input',
@@ -9,7 +9,13 @@ export class CountrySearchInputComponent {
 
   nameChange = output<string>();
   placeholder = input('Buscar');
-  inputValue = signal<string>('');
+
+  //Los linkedSignal se usan cuando una signal debe ser inicializada a través del resultado de un cálculo o proceso 
+  //ya inicializados se pueden usar como signal normales
+
+  initialValue = input<string>();
+
+  inputValue = linkedSignal<string>(() => this.initialValue() ?? '');
 
   //Se establece un effect, similar al useEffect de React
   //al usar inputValue() y ver que es un signal, el effect ya sabe que debe revisar si hay algun cambio en esa variable
@@ -23,7 +29,7 @@ export class CountrySearchInputComponent {
 
     const timeout = setTimeout(() => {
       this.nameChange.emit(value);
-    }, 500);
+    }, 1000);
 
     onCleanup(()=>{
       clearTimeout(timeout);
